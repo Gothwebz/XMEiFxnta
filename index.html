@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>iFantxsize Space</title>
+    <style>
+        /* =========================================
+           1. ESTILOS GLOBALES Y BASE
+           ========================================= */
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            overflow: hidden; font-family: 'Segoe UI', sans-serif; 
+            background-color: #000; 
+        }
+
+        /* FASE 1: CAPA DE ENTRADA */
+        #intro-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: url('https://xatimg.com/image/4uOqoUhFHJFu.png') no-repeat center center/cover;
+            z-index: 100; transition: opacity 1.5s ease;
+        }
+
+        /* FASE 2: CONTENEDOR DEL PERFIL */
+        #main-container {
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            display: none; justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 2s ease;
+        }
+
+        /* =========================================
+           2. ANIMACIONES DE INICIO Y FOOTER
+           ========================================= */
+        .ingresar-btn {
+            padding: 15px 45px; font-size: 1.2rem; color: #fff;
+            background: transparent; border: 2px solid #fff; border-radius: 50px;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .ingresar-btn:hover {
+            background: #fff; color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+        }
+
+        footer { position: absolute; bottom: 20px; width: 100%; text-align: center; }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.4); text-decoration: none;
+            font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+            transition: all 0.6s ease;
+        }
+
+        .footer-link:hover {
+            color: #fff; letter-spacing: 4px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* =========================================
+           3. ESTRUCTURA DE LA TARJETA
+           ========================================= */
+        .profile-card {
+            display: flex; width: 750px; height: 450px;
+            background-color: #121212; border-radius: 20px;
+            border: 1px solid #333; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .left-col {
+            width: 35%; background-color: #1a1a1a;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 30px 10px; border-right: 1px solid #222;
+        }
+
+        .right-col { width: 65%; padding: 40px; color: #fff; display: flex; flex-direction: column; justify-content: center; }
+
+       .avatar { 
+    width: 100px; 
+    height: 100px; 
+    border-radius: 50%; 
+    border: 2px solid #555; 
+    margin-bottom: 20px;
+    background-color: #1a1a1a;
+
+    /* REEMPLAZA "TU_ID" POR TU NÚMERO DE XAT */
+    background-image: url('https://xat.com/web_gear/chat/av/360048990.png'); 
+    background-size: cover;
+    background-position: center;
+}
+
+        .nav-btn {
+            width: 85%; padding: 10px; margin: 5px 0;
+            background: rgba(255, 255, 255, 0.05); color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;
+            cursor: pointer; transition: 0.3s; text-transform: uppercase; font-size: 0.8rem;
+        }
+
+        .nav-btn:hover { background: #fff; color: #000; }
+
+        /* =========================================
+           4. VENTANAS Y BOTONES DE AMIGOS
+           ========================================= */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9); display: none;
+            justify-content: center; align-items: center; z-index: 200;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            background: #111; border: 1px solid #333; padding: 30px;
+            border-radius: 15px; width: 500px; color: rgb(255, 255, 255); position: relative;
+            display: none;
+        }
+        
+        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 20px; cursor: pointer; color: #666; }
+
+        .friends-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+
+        .friend-btn {
+            display: block; padding: 12px; background: rgba(255, 255, 255, 0.05);
+            color: #fff; text-decoration: none; text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;
+            font-size: 0.9rem; letter-spacing: 1px; transition: all 0.4s ease;
+        }
+
+        .friend-btn:hover {
+            background: #fff; color: #000;
+            transform: translateX(10px);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        /* ESTILOS DEL REPRODUCTOR */
+        .album-art {
+    width: 120px; 
+    height: 120px; 
+    background: #333; 
+    margin: 0 auto 15px; 
+    /* Cambiamos el border-radius de 10px a 50% para que sea un círculo */
+    border-radius: 50%; 
+    border: 1px solid #444;
+    background-image: url('https://xatimg.com/image/F8LPsdAlkZGH.png');
+    background-size: cover;
+    
+    /* Esta línea es la que hace la magia del giro */
+    animation: girarDisco 5s linear infinite; 
+}
+        /* --- ANIMACIÓN DE ROTACIÓN --- */
+@keyframes girarDisco {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+    </style>
+</head>
+<body>
+
+    <div id="intro-layer">
+        <button class="ingresar-btn" onclick="iniciar()">ENTRAR</button>
+        <footer>
+            <a href="https://xat.me/iFantxsize" target="_blank" class="footer-link">
+                iFantxsize ©2026 Aᥣᥣ Rιghts Rᥱsᥱrvᥱd
+            </a>
+        </footer>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="https://www.dropbox.com/scl/fi/qpzk68sgr16a45c48wtf8/Pirlo-El-Americano-4KT-This-Is-Colombia.mp3?rlkey=ytmcmab2hiqzmkya4ik6zf3ln&st=73y7wj0h&raw=1" type="audio/mpeg">
+    </audio>
+
+    <div id="main-container">
+        <div class="profile-card">
+            <div class="left-col">
+                <div class="avatar"></div>
+                <button class="nav-btn" onclick="openModal('modal-profile')">About Me</button>
+                <button class="nav-btn" onclick="openModal('modal-gallery')">Gallery</button>
+                <button class="nav-btn" onclick="openModal('modal-friends')">Friends</button>
+                <button class="nav-btn" onclick="openModal('modal-music')">Music</button>
+            </div>
+            <div class="right-col">
+                <h1 style="margin:0; font-weight: 300;">Mauricio</h1>
+                <p id="type-text" style="line-height:1.6; color: rgba(255,255,255,0.7);"></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-container" class="modal-overlay" onclick="closeAllModals(event)">
+        
+        <div id="modal-profile" class="modal-content">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <h2>Yo ?</h2>
+            <p>Un pendejo que persigue lo genuino en cada vaina que le interesa...</p>
+        </div>
+
+        <div id="modal-friends" class="modal-content">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <h2>Amigos</h2>
+            <div class="friends-grid">
+                <a href="https://xat.me/ALee" target="_blank" class="friend-btn">Alee</a>
+                <a href="https://xat.me/dinamite99" target="_blank" class="friend-btn">Ângela</a>
+                <a href="https://xat.me/Inevitxble" target="_blank" class="friend-btn">Nᴀɴᴀ</a>
+            </div>
+        </div>
+
+        <div id="modal-gallery" class="modal-content">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <h2>Gallery</h2>
+            <p>Contenido Por Añadir</p>
+        </div>
+
+        <div id="modal-music" class="modal-content">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <div class="music-player" style="text-align: center; padding: 10px;">
+                <div class="album-art"></div>
+                <h3 id="song-title" style="margin:5px 0; font-weight: 300;">El Americano 4KT</h3>
+                <p id="song-artist" style="color:gray; font-size:0.8rem; margin:0;">Pirlo - This Is Colombia</p>
+                
+                <div class="progress-container" onclick="setProgressBar(event)" style="width: 100%; height: 6px; background: #222; border-radius: 10px; margin: 15px 0; cursor: pointer;">
+                    <div class="progress-bar" id="progress" style="width: 0%; height: 100%; background: #fff; border-radius: 10px;"></div>
+                </div>
+
+                <div class="music-controls" style="font-size: 1.5rem; cursor: pointer;">
+    <span onclick="togglePlay()">
+        <img id="play-pause-img" src="https://xatimg.com/image/cz1egVGBVjUb.png" style="width: 40px; height: 40px;">
+    </span>
+</div>
+            </div>
+        </div>
+    </div> 
+    <script>
+        function iniciar() {
+            const music = document.getElementById('bg-music');
+            music.play();
+            document.getElementById('intro-layer').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('intro-layer').style.display = 'none';
+                const main = document.getElementById('main-container');
+                main.style.display = 'flex';
+                setTimeout(() => { 
+                    main.style.opacity = '1'; 
+                    typeWriter(); 
+                }, 100);
+            }, 1500);
+        }
+
+        const text = "Bienvenido a mi espacio. Siéntase libre de explorar.";
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("type-text").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        function openModal(id) {
+            document.getElementById('modal-container').style.display = 'flex';
+            const contents = document.querySelectorAll('.modal-content');
+            contents.forEach(c => c.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal-container').style.display = 'none';
+        }
+
+        function closeAllModals(event) {
+            if (event.target.id === 'modal-container') closeModal();
+        }
+
+        /* LÓGICA DE MÚSICA */
+        const audio = document.getElementById('bg-music');
+        const progressBar = document.getElementById('progress');
+        const albumArt = document.querySelector('.album-art');
+        audio.addEventListener('timeupdate', () => {
+            if(progressBar) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = percent + '%';
+            }
+        });
+
+        function togglePlay() {
+    const btnImg = document.getElementById('play-pause-img'); // Buscamos la imagen
+
+    if (audio.paused) {
+        audio.play();
+        albumArt.style.animationPlayState = 'running';
+        btnImg.src = "https://xatimg.com/image/Jq7B1zw67YK7.png"; // Cambia a imagen de Pausa
+    } else {
+        audio.pause();
+        albumArt.style.animationPlayState = 'paused';
+        btnImg.src = "https://xatimg.com/image/cz1egVGBVjUb.png"; // Cambia a imagen de Play
+    }
+}
+    </script>
+</body>
+</html>
