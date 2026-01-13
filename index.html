@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>iFantxsize Space</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         /* =========================================
            1. ESTILOS GLOBALES Y BASE
@@ -63,20 +66,41 @@
            3. ESTRUCTURA DE LA TARJETA
            ========================================= */
         .profile-card {
-            display: flex; width: 750px; height: 450px;
-            background-color: #121212; border-radius: 20px;
-            border: 1px solid #333; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+    display: flex; 
+    width: 750px; 
+    min-height: 450px; /* Cambiamos height por min-height */
+    background-color: #121212; 
+    border-radius: 20px;
+    border: 1px solid #333; 
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
 
         .left-col {
             width: 35%; background-color: #1a1a1a;
             display: flex; flex-direction: column; align-items: center;
             padding: 30px 10px; border-right: 1px solid #222;
         }
-
-        .right-col { width: 65%; padding: 40px; color: #fff; display: flex; flex-direction: column; justify-content: center; }
-
+.right-col {
+    width: 65%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Esto centra todo verticalmente */
+    align-items: center;     /* Esto centra todo horizontalmente */
+    text-align: center;      /* Asegura que el texto esté centrado */
+}
+        .right-col h1 {
+    font-family: 'VT323', monospace;
+    font-size: 3.5rem; /* Bajamos un poco el tamaño para ganar nitidez */
+    font-weight: normal; /* Evitamos que el navegador lo ponga en negrita */
+    letter-spacing: 2px;
+    margin: 10px 0;
+    color: #fff;
+    /* Cambiamos pixelated por auto para evitar que se vea "tosco" */
+    text-rendering: optimizeLegibility; 
+    -webkit-font-smoothing: antialiased;
+}
        .avatar { 
     width: 100px; 
     height: 100px; 
@@ -153,18 +177,145 @@
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
-    </style>
+.volume-container {
+    margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.volume-slider {
+    -webkit-appearance: none; width: 80px; height: 4px; background: #333; border-radius: 5px; outline: none; cursor: pointer;
+}
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 12px; height: 12px; background: #fff; border-radius: 50%;
+}
+
+/* Efecto de parpadeo para el estado del sistema */
+@keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
+
+/* Estilo para la terminal de diagnóstico */
+#type-text {
+    font-family: 'Courier New', monospace;
+    color: #d1d1d1; /* Blanco hueso */
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Estilos de la Galería con Scanner */
+.scanner-line {
+    position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+    background: rgb(255, 255, 255); box-shadow: 0 0 10px rgb(141, 10, 173);
+    animation: scan 3s linear infinite;
+}
+@keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+.evidence-item.expanded {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 800px; height: 600px; z-index: 1000; border: 2px solid #fff;
+    background: #000; display: flex; align-items: center; justify-content: center;
+}
+/* =========================================
+   5. BOTÓN CYBER INTERACTIVO (CORREGIDO)
+   ========================================= */
+.container { 
+    position: relative; 
+    width: 240px;   /* Ancho fijo de botón */
+    height: 75px;   /* Alto fijo de botón */
+    transition: 0.3s; 
+    margin-top: 380px; /* Lo baja a la roca sin mover la imagen de fondo */
+    z-index: 101;
+}
+
+/* Efecto de clic: Solo se hunde un poco, no cambia de tamaño */
+.container:active { transform: scale(0.95); }
+
+#card {
+    position: absolute; inset: 0; z-index: 0; 
+    display: flex; justify-content: center; align-items: center; 
+    border-radius: 12px; transition: 0.5s ease-out;
+    background: linear-gradient(45deg, #0b0b0b, #1a1a1a);
+    border: 1px solid rgba(129, 91, 255, 0.4); 
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    transform-style: preserve-3d; /* Permite que el texto flote en 3D */
+    overflow: visible;
+}
+
+.canvas {
+    perspective: 1000px; /* Profundidad de cámara para el efecto 3D */
+    position: absolute; inset: 0; z-index: 200;
+    display: grid; 
+    grid-template-columns: repeat(5, 1fr); 
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-areas:
+        "tr-1 tr-2 tr-3 tr-4 tr-5" "tr-6 tr-7 tr-8 tr-9 tr-10"
+        "tr-11 tr-12 tr-13 tr-14 tr-15" "tr-16 tr-17 tr-18 tr-19 tr-20"
+        "tr-21 tr-22 tr-23 tr-24 tr-25";
+}
+
+.tracker { width: 100%; height: 100%; z-index: 201; cursor: pointer; }
+
+/* REGLAS DE ROTACIÓN 3D (EL "CEREBRO" DEL BOTÓN) */
+.tr-1:hover ~ #card { transform: rotateX(15deg) rotateY(-15deg); }
+.tr-5:hover ~ #card { transform: rotateX(15deg) rotateY(15deg); }
+.tr-13:hover ~ #card { transform: rotateX(0deg) rotateY(0deg); }
+.tr-21:hover ~ #card { transform: rotateX(-15deg) rotateY(-15deg); }
+.tr-25:hover ~ #card { transform: rotateX(-15deg) rotateY(15deg); }
+
+/* Efecto Parallax: El texto se despega del fondo cuando inclinas el botón */
+.tracker:hover ~ #card .title { transform: translateZ(40px); }
+
+.title {
+    font-family: 'VT323', monospace; color: #fff; font-size: 1.6rem;
+    letter-spacing: 3px; text-shadow: 0 0 10px #815bff;
+    transition: 0.4s ease-out; pointer-events: none;
+}
+
+#prompt {
+    position: absolute; top: 6px; left: 12px; font-size: 0.5rem;
+    color: #815bff; font-family: monospace; margin: 0;
+}
+
+.subtitle {
+    position: absolute; bottom: 6px; right: 12px; font-size: 0.5rem;
+    color: #555; font-family: monospace;
+}
+
+.scan-line {
+    position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+    background: #815bff; opacity: 0.2; filter: blur(1px);
+    animation: scan-move 3s linear infinite;
+}
+
+@keyframes scan-move { 0% { top: 0; } 100% { top: 100%; } }
+</style>
 </head>
 <body>
 
     <div id="intro-layer">
-        <button class="ingresar-btn" onclick="iniciar()">ENTRAR</button>
-        <footer>
-            <a href="https://xat.me/iFantxsize" target="_blank" class="footer-link">
-                iFantxsize Design ©2026 
-            </a>
-        </footer>
+    <div class="container noselect" onclick="iniciar()" style="cursor: pointer;">
+      <div class="canvas">
+    <div class="tracker tr-1"></div><div class="tracker tr-2"></div><div class="tracker tr-3"></div><div class="tracker tr-4"></div><div class="tracker tr-5"></div>
+    <div class="tracker tr-6"></div><div class="tracker tr-7"></div><div class="tracker tr-8"></div><div class="tracker tr-9"></div><div class="tracker tr-10"></div>
+    <div class="tracker tr-11"></div><div class="tracker tr-12"></div><div class="tracker tr-13"></div><div class="tracker tr-14"></div><div class="tracker tr-15"></div>
+    <div class="tracker tr-16"></div><div class="tracker tr-17"></div><div class="tracker tr-18"></div><div class="tracker tr-19"></div><div class="tracker tr-20"></div>
+    <div class="tracker tr-21"></div><div class="tracker tr-22"></div><div class="tracker tr-23"></div><div class="tracker tr-24"></div><div class="tracker tr-25"></div>
+    
+    <div id="card">
+      <div class="card-content">
+        <div class="card-glare"></div>
+        <p id="prompt">> SYSTEM_READY</p>
+        <div class="title">INGRESAR</div>
+        <div class="subtitle">SECURE_ACCESS</div>
+        <div class="scan-line"></div>
+      </div>
     </div>
+</div>
+    </div>
+
+    <footer>
+        <a href="https://xat.me/iFantxsize" target="_blank" class="footer-link">
+            iFantxsize Design ©2026 
+        </a>
+    </footer>
+</div>
 
     <audio id="bg-music" loop>
         <source src="https://www.dropbox.com/scl/fi/qpzk68sgr16a45c48wtf8/Pirlo-El-Americano-4KT-This-Is-Colombia.mp3?rlkey=ytmcmab2hiqzmkya4ik6zf3ln&st=73y7wj0h&raw=1" type="audio/mpeg">
@@ -180,7 +331,10 @@
                 <button class="nav-btn" onclick="openModal('modal-music')">Music</button>
             </div>
             <div class="right-col">
-                <h1 style="margin:0; font-weight: 300;">Mauricio</h1>
+                <div id="system-status" style="font-size: 0.7rem; font-family: monospace; color: #815bff; margin-bottom: 10px; display:none;">
+    [ STATUS: <span style="animation: blink 1s infinite;">ENCRYPTED</span> ] | [ CONNECTION: SECURE ] | [ LOCATION: COLOMBIA ]
+</div>
+                <h1 id="user-name">Mauricio</h1>
                 <p id="type-text" style="line-height:1.6; color: rgba(255,255,255,0.7);"></p>
             </div>
         </div>
@@ -189,10 +343,16 @@
     <div id="modal-container" class="modal-overlay" onclick="closeAllModals(event)">
         
         <div id="modal-profile" class="modal-content">
-            <span class="close-btn" onclick="closeModal()">×</span>
-            <h2>Yo ?</h2>
-            <p>Un pendejo que persigue lo genuino en cada vaina que le interesa...</p>
-        </div>
+    <span class="close-btn" onclick="closeModal()">×</span>
+    
+    <div style="font-family: monospace; font-size: 0.7rem; color: #815bff; margin-bottom: 10px;animation: blink 1s infinite;">
+        [ AUTHENTICATING_SUBJECT... ]
+    </div>
+
+    <h2>Yo ?</h2>
+    
+    <p id="about-me-dynamic" style="min-height: 1.5em;"></p>
+</div>
 
         <div id="modal-friends" class="modal-content">
             <span class="close-btn" onclick="closeModal()">×</span>
@@ -206,16 +366,21 @@
 
         <div id="modal-gallery" class="modal-content">
             <span class="close-btn" onclick="closeModal()">×</span>
-            <h2>Gallery</h2>
-            <p>Contenido Por Añadir</p>
-        </div>
-
-        <div id="modal-music" class="modal-content">
+<h2>Evidence Gallery</h2>
+<div class="evidence-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+    <div class="evidence-item" onclick="this.classList.toggle('expanded')" style="position: relative; border: 1px solid #333; cursor: pointer; overflow: hidden;">
+        <img src="https://xatimg.com/image/t5v4fON8IZNO.png" style="width: 100%; display: block;">
+        <div class="scanner-line"></div>
+    </div>
+    </div> </div>  <div id="modal-music" class="modal-content">
+            <div class="volume-container">
+    <input type="range" class="volume-slider" id="volume-control" min="0" max="1" step="0.01" value="1" oninput="setVolume(this.value)">
+</div>
             <span class="close-btn" onclick="closeModal()">×</span>
             <div class="music-player" style="text-align: center; padding: 10px;">
                 <div class="album-art"></div>
-                <h3 id="song-title" style="margin:5px 0; font-weight: 300;">El Americano 4KT</h3>
-                <p id="song-artist" style="color:gray; font-size:0.8rem; margin:0;">Pirlo - This Is Colombia</p>
+                <h3 id="song-title" style="margin:5px 0; font-weight: 300;">This is Colombia</h3>
+                <p id="song-artist" style="color:gray; font-size:0.8rem; margin:0;">Pirlo - El Americano 4KT</p>
                 
                 <div class="progress-container" onclick="setProgressBar(event)" style="width: 100%; height: 6px; background: #222; border-radius: 10px; margin: 15px 0; cursor: pointer;">
                     <div class="progress-bar" id="progress" style="width: 0%; height: 100%; background: #fff; border-radius: 10px;"></div>
@@ -238,14 +403,16 @@
                 document.getElementById('intro-layer').style.display = 'none';
                 const main = document.getElementById('main-container');
                 main.style.display = 'flex';
-                setTimeout(() => { 
-                    main.style.opacity = '1'; 
-                    typeWriter(); 
-                }, 100);
-            }, 1500);
+                document.getElementById('system-status').style.display = 'block'; 
+
+        setTimeout(() => { 
+            main.style.opacity = '1'; 
+            typeWriter(); 
+        }, 100);
+    }, 1500);
         }
 
-        const text = "Bienvenido a mi espacio. Siéntase libre de explorar.";
+        const text = "[ANALYSIS_LOG]> Bienvenido a mi espacio. Siéntase libre de explorar_";
         let i = 0;
         function typeWriter() {
             if (i < text.length) {
@@ -256,11 +423,28 @@
         }
 
         function openModal(id) {
-            document.getElementById('modal-container').style.display = 'flex';
-            const contents = document.querySelectorAll('.modal-content');
-            contents.forEach(c => c.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
+    document.getElementById('modal-container').style.display = 'flex';
+    const contents = document.querySelectorAll('.modal-content');
+    contents.forEach(c => c.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+
+    // EFECTO FORENSIC SOLO PARA EL ABOUT ME
+    if (id === 'modal-profile') {
+        const bioText = "Un pendejo que persigue lo genuino en cada vaina que le interesa...";
+        const target = document.getElementById("about-me-dynamic");
+        target.innerHTML = ""; // Limpia por si lo abres varias veces
+        let charIndex = 0;
+
+        function typeBio() {
+            if (charIndex < bioText.length) {
+                target.innerHTML += bioText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeBio, 30); // Velocidad de escritura
+            }
         }
+        typeBio();
+    }
+}
 
         function closeModal() {
             document.getElementById('modal-container').style.display = 'none';
@@ -294,6 +478,13 @@
         btnImg.src = "https://xatimg.com/image/cz1egVGBVjUb.png"; // Cambia a imagen de Play
     }
 }
+function setVolume(val) {
+    document.getElementById('bg-music').volume = val;
+}
+
+
+const canvas = document.createElement('canvas');
+setInterval(drawMatrix, 50);
     </script>
 </body>
 </html>
