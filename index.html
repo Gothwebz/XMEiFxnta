@@ -108,11 +108,29 @@
     border: 2px solid #555; 
     margin-bottom: 20px;
     background-color: #1a1a1a;
-
-    /* REEMPLAZA "TU_ID" POR TU NÚMERO DE XAT */
     background-image: url('https://raw.githubusercontent.com/Gothwebz/XMEiFxnta/refs/heads/main/FXAT02.gif'); 
     background-size: cover;
     background-position: center;
+
+    /* ESTADO INICIAL: Oculto y fuera de la pantalla a la izquierda */
+    opacity: 0;
+    transform: translateX(-500px) rotate(-360deg);
+}
+
+/* LA ANIMACIÓN DE RODAR Y REBOTAR */
+.avatar-entrance {
+    animation: rollIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes rollIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-500px) rotate(-720deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotate(0deg);
+    }
 }
 
         .nav-btn {
@@ -399,22 +417,39 @@
     </div> 
     <script>
         function iniciar() {
-            const music = document.getElementById('bg-music');
-            music.volume = 0.45;
-            music.play();
-            document.getElementById('intro-layer').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('intro-layer').style.display = 'none';
-                const main = document.getElementById('main-container');
-                main.style.display = 'flex';
-                document.getElementById('system-status').style.display = 'block'; 
+    const music = document.getElementById('bg-music');
+    music.volume = 0.45;
+    music.play();
+    document.getElementById('intro-layer').style.opacity = '0';
+    
+    setTimeout(() => {
+        document.getElementById('intro-layer').style.display = 'none';
+        const main = document.getElementById('main-container');
+        main.style.display = 'flex';
+        document.getElementById('system-status').style.display = 'block'; 
+
+        // --- NUEVO: EFECTO DE PELOTA RODANDO (3 seg de espera) ---
+        setTimeout(() => {
+            const avatar = document.querySelector('.avatar');
+            if(avatar) {
+                avatar.classList.add('avatar-entrance');
+            }
+        }, 3000); // 3000ms = 3 segundos
+
+        // Cambio de GIF a Estático (esto se mantiene igual)
+        setTimeout(() => {
+            const avatar = document.querySelector('.avatar');
+            if(avatar) {
+                avatar.style.backgroundImage = "url('https://xatimg.com/image/gxRBis2AoYT7.png')";
+            }
+        }, 4000); 
 
         setTimeout(() => { 
             main.style.opacity = '1'; 
             typeWriter(); 
         }, 100);
     }, 1500);
-        }
+}
 
         const text = "[ANALYSIS_LOG]> Bienvenido a mi espacio. Siéntase libre de explorar_";
         let i = 0;
@@ -491,12 +526,20 @@ const canvas = document.createElement('canvas');
 setInterval(drawMatrix, 50);
 
 function setProgressBar(event) {
-    const width = document.querySelector('.progress-container').clientWidth; // Obtiene el ancho total de la barra
-    const clickX = event.offsetX; // Detecta dónde hiciste clic exactamente
-    const duration = audio.duration; // Obtiene la duración total de la canción
-    cursor: pointer;
-    // Calcula el nuevo tiempo y lo aplica al audio
-    audio.currentTime = (clickX / width) * duration; 
+    // 1. Obtenemos el contenedor de la barra
+    const container = document.querySelector('.progress-container');
+    const width = container.clientWidth; 
+    
+    // 2. Detectamos la posición del clic
+    const clickX = event.offsetX; 
+    
+    // 3. Obtenemos la duración total del audio de Pirlo
+    const duration = audio.duration; 
+    
+    // 4. Movemos la canción al punto exacto del clic
+    if (duration) {
+        audio.currentTime = (clickX / width) * duration;
+    }
 }
     </script>
 </body>
