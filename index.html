@@ -110,7 +110,7 @@
     background-color: #1a1a1a;
 
     /* REEMPLAZA "TU_ID" POR TU NÚMERO DE XAT */
-    background-image: url('https://xatimg.com/image/JPelbeX7rJvi.png'); 
+    background-image: url('https://raw.githubusercontent.com/Gothwebz/XMEiFxnta/refs/heads/main/FXAT02.gif'); 
     background-size: cover;
     background-position: center;
 }
@@ -371,32 +371,36 @@
     <div class="evidence-item" onclick="this.classList.toggle('expanded')" style="position: relative; border: 1px solid #333; cursor: pointer; overflow: hidden;">
         <img src="https://xatimg.com/image/t5v4fON8IZNO.png" style="width: 100%; display: block;">
         <div class="scanner-line"></div>
+    </div> </div>
+     </div>  
+     <div id="modal-music" class="modal-content">
+    <span class="close-btn" onclick="closeModal()">×</span>
+    
+    <div class="volume-container" style="margin-bottom: 20px;">
+        <input type="range" class="volume-slider" id="volume-control" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)">
     </div>
-    </div> </div>  <div id="modal-music" class="modal-content">
-            <div class="volume-container">
-    <input type="range" class="volume-slider" id="volume-control" min="0" max="1" step="0.01" value="1" oninput="setVolume(this.value)">
-</div>
-            <span class="close-btn" onclick="closeModal()">×</span>
-            <div class="music-player" style="text-align: center; padding: 10px;">
-                <div class="album-art"></div>
-                <h3 id="song-title" style="margin:5px 0; font-weight: 300;">This is Colombia</h3>
-                <p id="song-artist" style="color:gray; font-size:0.8rem; margin:0;">Pirlo - El Americano 4KT</p>
-                
-                <div class="progress-container" onclick="setProgressBar(event)" style="width: 100%; height: 6px; background: #222; border-radius: 10px; margin: 15px 0; cursor: pointer;">
-                    <div class="progress-bar" id="progress" style="width: 0%; height: 100%; background: #fff; border-radius: 10px;"></div>
-                </div>
 
-                <div class="music-controls" style="font-size: 1.5rem; cursor: pointer;">
-    <span onclick="togglePlay()">
-        <img id="play-pause-img" src="https://xatimg.com/image/Jq7B1zw67YK7.png" style="width: 40px; height: 40px;">
-    </span>
-</div>
-            </div>
+    <div class="music-player" style="text-align: center; padding: 10px;">
+        <div class="album-art"></div>
+        <h3 id="song-title" style="margin:5px 0; font-weight: 300;">El Americano 4KT</h3>
+        <p id="song-artist" style="color:gray; font-size:0.8rem; margin:0;">Pirlo - This Is Colombia</p>
+        
+        <div class="progress-container" onclick="setProgressBar(event)" style="width: 100%; height: 6px; background: #222; border-radius: 10px; margin: 15px 0; cursor: pointer;">
+            <div class="progress-bar" id="progress" style="width: 0%; height: 100%; background: #fff; border-radius: 10px;"></div>
         </div>
+
+        <div class="music-controls" style="font-size: 1.5rem; cursor: pointer;">
+            <span onclick="togglePlay()">
+                <img id="play-pause-img" src="https://xatimg.com/image/Jq7B1zw67YK7.png" style="width: 40px; height: 40px;">
+            </span>
+        </div>
+    </div>
+</div> 
     </div> 
     <script>
         function iniciar() {
             const music = document.getElementById('bg-music');
+            music.volume = 0.45;
             music.play();
             document.getElementById('intro-layer').style.opacity = '0';
             setTimeout(() => {
@@ -485,6 +489,15 @@ function setVolume(val) {
 
 const canvas = document.createElement('canvas');
 setInterval(drawMatrix, 50);
+
+function setProgressBar(event) {
+    const width = document.querySelector('.progress-container').clientWidth; // Obtiene el ancho total de la barra
+    const clickX = event.offsetX; // Detecta dónde hiciste clic exactamente
+    const duration = audio.duration; // Obtiene la duración total de la canción
+    cursor: pointer;
+    // Calcula el nuevo tiempo y lo aplica al audio
+    audio.currentTime = (clickX / width) * duration; 
+}
     </script>
 </body>
 </html>
