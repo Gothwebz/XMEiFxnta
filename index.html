@@ -303,6 +303,31 @@
 }
 
 @keyframes scan-move { 0% { top: 0; } 100% { top: 100%; } }
+/* EL CUADRITO DE DIAGNÓSTICO (CENTRADO) */
+.data-box {
+    position: absolute;
+    bottom: 20px;    /* Separación del borde inferior */
+    left: 50%;       /* Lo mueve al centro */
+    transform: translateX(-50%); /* Ajuste fino para centrarlo exacto */
+    width: 75px;     /* Tamaño del cuadrito */
+    height: 75px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(129, 91, 255, 0.6); /* Borde morado cyber */
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(129, 91, 255, 0.3);
+    z-index: 10;
+}
+
+.data-gif-cube {
+    width: 110%;    /* Ajuste para que el cubo llene bien el cuadro */
+    height: auto;
+    opacity: 0.8;
+    filter: hue-rotate(280deg) brightness(1.2); /* Mantiene el tono morado del sistema */
+}
 </style>
 </head>
 <body>
@@ -354,6 +379,8 @@
 </div>
                 <h1 id="user-name">Mauricio</h1>
                 <p id="type-text" style="line-height:1.6; color: rgba(255,255,255,0.7);"></p>
+            <div class="data-box">
+        <img src="https://raw.githubusercontent.com/Gothwebz/XMEiFxnta/4c3a5efd874543211830fe0783f3a8303c91eccd/Art%20Offset%20GIF.gif" class="data-gif-cube">
             </div>
         </div>
     </div>
