@@ -11,9 +11,7 @@
 body, html, button, .nav-btn, .container, .data-box, a {
     cursor: url('https://github.com/Gothwebz/XMEiFxnta/raw/refs/heads/main/cursor.cur'), auto !important;
 }
-        /* =========================================
-           1. ESTILOS GLOBALES Y BASE
-           ========================================= */
+    
         body, html { 
             margin: 0; padding: 0; width: 100%; height: 100%; 
             overflow: hidden; font-family: 'Segoe UI', sans-serif; 
@@ -38,10 +36,6 @@ button, .nav-btn, .container, .data-box, a, .tracker {
             display: none; justify-content: center; align-items: center;
             opacity: 0; transition: opacity 2s ease;
         }
-
-        /* =========================================
-           2. ANIMACIONES DE INICIO Y FOOTER
-           ========================================= */
         .ingresar-btn {
             padding: 15px 45px; font-size: 1.2rem; color: #fff;
             background: transparent; border: 2px solid #fff; border-radius: 50px;
@@ -68,14 +62,10 @@ button, .nav-btn, .container, .data-box, a, .tracker {
             color: #fff; letter-spacing: 4px;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
-
-        /* =========================================
-           3. ESTRUCTURA DE LA TARJETA
-           ========================================= */
         .profile-card {
     display: flex; 
     width: 750px; 
-    min-height: 450px; /* Cambiamos height por min-height */
+    min-height: 450px; 
     background-color: #121212; 
     border-radius: 20px;
     border: 1px solid #333; 
@@ -93,19 +83,18 @@ button, .nav-btn, .container, .data-box, a, .tracker {
     padding: 40px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Esto centra todo verticalmente */
-    align-items: center;     /* Esto centra todo horizontalmente */
-    text-align: center;      /* Asegura que el texto esté centrado */
-    position: relative; /* Data Box Relativo */
+    justify-content: center; 
+    align-items: center;     
+    text-align: center;     
+    position: relative; 
 }
         .right-col h1 {
     font-family: 'VT323', monospace;
-    font-size: 3.5rem; /* Bajamos un poco el tamaño para ganar nitidez */
-    font-weight: normal; /* Evitamos que el navegador lo ponga en negrita */
+    font-size: 3.5rem;
+    font-weight: normal; 
     letter-spacing: 2px;
     margin: 10px 0;
     color: #fff;
-    /* Cambiamos pixelated por auto para evitar que se vea "tosco" */
     text-rendering: optimizeLegibility; 
     -webkit-font-smoothing: antialiased;
 }
@@ -119,13 +108,9 @@ button, .nav-btn, .container, .data-box, a, .tracker {
     background-image: url('https://raw.githubusercontent.com/Gothwebz/XMEiFxnta/refs/heads/main/FXAT02.gif'); 
     background-size: cover;
     background-position: center;
-
-    /* ESTADO INICIAL: Oculto y fuera de la pantalla a la izquierda */
     opacity: 0;
     transform: translateX(-500px) rotate(-360deg);
 }
-
-/* LA ANIMACIÓN DE RODAR Y REBOTAR */
 .avatar-entrance {
     animation: rollIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
@@ -140,30 +125,19 @@ button, .nav-btn, .container, .data-box, a, .tracker {
         transform: translateX(0) rotate(0deg);
     }
 }
-
-       /* BOTONES CON EFECTO GLITCH REDONDEADO */
-/* BOTONES GLITCH PURPLE (DIMENSIONES ORIGINALES Y REDONDEADOS) */
-/* REFINAMIENTO DE BOTONES (LINEA 117 APROX) */
-/* BOTONES CON TRAZO DEFINIDO Y GLITCH */
 .nav-btn,
 .nav-btn:after {
     width: 85%;
     height: 42px;
-    line-height: 40px; /* Ajustado para centrar con el borde */
+    line-height: 40px; 
     font-size: 1.1rem;
     font-family: 'VT323', monospace;
     background: linear-gradient(45deg, transparent 5%, #1a1a1a 5%);
-    
-    /* EL TRAZO QUE PEDISTE: Borde morado sólido y redondeado */
     border: 1px solid #815bff; 
-    border-radius: 8px; 
-    
+    border-radius: 8px;     
     color: #fff;
-    letter-spacing: 2px;
-    
-    /* Mantenemos el brillo lateral para el estilo Cyber */
-    box-shadow: 4px 0px 10px rgba(129, 91, 255, 0.2);
-    
+    letter-spacing: 2px;  
+    box-shadow: 4px 0px 10px rgba(129, 91, 255, 0.2);    
     outline: transparent;
     position: relative;
     margin: 10px 0;
@@ -183,7 +157,6 @@ button, .nav-btn, .container, .data-box, a, .tracker {
     content: attr(data-text); 
     display: block;
     position: absolute;
-    /* Ajuste para que el efecto cubra el borde del botón */
     top: -1px; left: -1px; right: -1px; bottom: -1px;
     
     background: linear-gradient(45deg, transparent 3%, #815bff 3%, #815bff 5%, #1a1a1a 5%);
@@ -197,8 +170,6 @@ button, .nav-btn, .container, .data-box, a, .tracker {
     animation: 1s glitch;
     animation-timing-function: steps(2, end);
 }
-
-/* Efecto visual al presionar */
 .nav-btn:active {
     transform: scale(0.96);
     box-shadow: 0 0 15px #815bff;
@@ -216,22 +187,17 @@ button, .nav-btn, .container, .data-box, a, .tracker {
     80% { clip-path: var(--slice-5); transform: translate(10px, -5px); }
     100% { clip-path: var(--slice-1); transform: translate(0); }
 }
-        /* ESTILOS DEL REPRODUCTOR */
         .album-art {
     width: 120px; 
     height: 120px; 
     background: #333; 
     margin: 0 auto 15px; 
-    /* Cambiamos el border-radius de 10px a 50% para que sea un círculo */
     border-radius: 50%; 
     border: 1px solid #444;
     background-image: url('https://xatimg.com/image/F8LPsdAlkZGH.png');
     background-size: cover;
-    
-    /* Esta línea es la que hace la magia del giro */
     animation: girarDisco 5s linear infinite; 
 }
-        /* --- ANIMACIÓN DE ROTACIÓN --- */
 @keyframes girarDisco {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
@@ -245,20 +211,15 @@ button, .nav-btn, .container, .data-box, a, .tracker {
 .volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none; width: 12px; height: 12px; background: #fff; border-radius: 50%;
 }
-
-/* Efecto de parpadeo para el estado del sistema */
 @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
 
-/* Estilo para la terminal de diagnóstico */
 #type-text {
     font-family: 'Courier New', monospace;
-    color: #d1d1d1; /* Blanco hueso */
+    color: #d1d1d1;
     background: rgba(0, 0, 0, 0.3);
     padding: 10px;
     border-radius: 5px;
 }
-
-/* Estilos de la Galería con Scanner */
 .scanner-line {
     position: absolute; top: 0; left: 0; width: 100%; height: 2px;
     background: rgb(255, 255, 255); box-shadow: 0 0 10px rgb(141, 10, 173);
@@ -271,19 +232,14 @@ button, .nav-btn, .container, .data-box, a, .tracker {
     width: 800px; height: 600px; z-index: 1000; border: 2px solid #fff;
     background: #000; display: flex; align-items: center; justify-content: center;
 }
-/* =========================================
-   5. BOTÓN CYBER INTERACTIVO (CORREGIDO)
-   ========================================= */
 .container { 
     position: relative; 
-    width: 240px;   /* Ancho fijo de botón */
-    height: 75px;   /* Alto fijo de botón */
+    width: 240px;   
+    height: 75px;   
     transition: 0.3s; 
-    margin-top: 380px; /* Lo baja a la roca sin mover la imagen de fondo */
+    margin-top: 380px; 
     z-index: 101;
 }
-
-/* Efecto de clic: Solo se hunde un poco, no cambia de tamaño */
 .container:active { transform: scale(0.95); }
 
 #card {
@@ -293,12 +249,12 @@ button, .nav-btn, .container, .data-box, a, .tracker {
     background: linear-gradient(45deg, #0b0b0b, #1a1a1a);
     border: 1px solid rgba(129, 91, 255, 0.4); 
     box-shadow: 0 0 20px rgba(0,0,0,0.8);
-    transform-style: preserve-3d; /* Permite que el texto flote en 3D */
+    transform-style: preserve-3d; 
     overflow: visible;
 }
 
 .canvas {
-    perspective: 1000px; /* Profundidad de cámara para el efecto 3D */
+    perspective: 1000px;
     position: absolute; inset: 0; z-index: 200;
     display: grid; 
     grid-template-columns: repeat(5, 1fr); 
@@ -310,50 +266,40 @@ button, .nav-btn, .container, .data-box, a, .tracker {
 }
 
 .tracker { width: 100%; height: 100%; z-index: 201; cursor: pointer; }
-
-/* REGLAS DE ROTACIÓN 3D (EL "CEREBRO" DEL BOTÓN) */
 .tr-1:hover ~ #card { transform: rotateX(15deg) rotateY(-15deg); }
 .tr-5:hover ~ #card { transform: rotateX(15deg) rotateY(15deg); }
 .tr-13:hover ~ #card { transform: rotateX(0deg) rotateY(0deg); }
 .tr-21:hover ~ #card { transform: rotateX(-15deg) rotateY(-15deg); }
 .tr-25:hover ~ #card { transform: rotateX(-15deg) rotateY(15deg); }
-
-/* Efecto Parallax: El texto se despega del fondo cuando inclinas el botón */
 .tracker:hover ~ #card .title { transform: translateZ(40px); }
-
 .title {
     font-family: 'VT323', monospace; color: #fff; font-size: 1.6rem;
     letter-spacing: 3px; text-shadow: 0 0 10px #815bff;
     transition: 0.4s ease-out; pointer-events: none;
 }
-
 #prompt {
     position: absolute; top: 6px; left: 12px; font-size: 0.5rem;
     color: #815bff; font-family: monospace; margin: 0;
 }
-
 .subtitle {
     position: absolute; bottom: 6px; right: 12px; font-size: 0.5rem;
     color: #555; font-family: monospace;
 }
-
 .scan-line {
     position: absolute; top: 0; left: 0; width: 100%; height: 2px;
     background: #815bff; opacity: 0.2; filter: blur(1px);
     animation: scan-move 3s linear infinite;
 }
-
 @keyframes scan-move { 0% { top: 0; } 100% { top: 100%; } }
-/* EL CUADRITO DE DIAGNÓSTICO (CENTRADO) */
 .data-box {
     position: absolute;
-    bottom: 20px;    /* Separación del borde inferior */
-    left: 50%;       /* Lo mueve al centro */
-    transform: translateX(-50%); /* Ajuste fino para centrarlo exacto */
-    width: 75px;     /* Tamaño del cuadrito */
+    bottom: 20px;   
+    left: 50%;      
+    transform: translateX(-50%); 
+    width: 75px;     
     height: 75px;
     background: rgba(0, 0, 0, 0.9);
-    border: 1px solid rgba(129, 91, 255, 0.6); /* Borde morado cyber */
+    border: 1px solid rgba(129, 91, 255, 0.6); 
     border-radius: 10px;
     overflow: hidden;
     display: flex;
@@ -362,51 +308,39 @@ button, .nav-btn, .container, .data-box, a, .tracker {
     box-shadow: 0 0 15px rgba(129, 91, 255, 0.3);
     z-index: 10;
 }
-
 .data-gif-cube {
-    width: 110%;    /* Ajuste para que el cubo llene bien el cuadro */
+    width: 110%;   
     height: auto;
     opacity: 0.8;
-    filter: hue-rotate(280deg) brightness(1.2); /* Mantiene el tono morado del sistema */
+    filter: hue-rotate(280deg) brightness(1.2); 
 }
-/* =========================================
-   ESTILOS DE MODALES (REPARACIÓN)
-   ========================================= */
 .modal-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.85);
     display: none; justify-content: center; align-items: center;
     z-index: 2000; backdrop-filter: blur(5px);
 }
-
 .modal-content {
     background-color: #111; padding: 40px; border-radius: 15px;
     width: 80%; max-width: 600px; color: #fff; position: relative;
     border: 1px solid #815bff; box-shadow: 0 0 20px rgba(129, 91, 255, 0.2);
     display: none; animation: modalFade 0.3s ease;
 }
-
 @keyframes modalFade { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-
 .close-btn {
     position: absolute; top: 15px; right: 20px; font-size: 2rem;
     color: #815bff; cursor: pointer; transition: 0.3s;
 }
-
 .close-btn:hover { color: #fff; transform: rotate(90deg); }
-
-/* Estilos de cuadrículas internas de los modales */
 .friends-grid, .evidence-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 15px; margin-top: 20px;
 }
-
 .friend-btn {
     background: #1a1a1a; color: #815bff; padding: 10px;
     text-align: center; border-radius: 8px; border: 1px solid #333;
     text-decoration: none; transition: 0.3s;
 }
-
 .friend-btn:hover { background: #815bff; color: #fff; }
 </style>
 </head>
@@ -534,30 +468,24 @@ button, .nav-btn, .container, .data-box, a, .tracker {
         const main = document.getElementById('main-container');
         main.style.display = 'flex';
         document.getElementById('system-status').style.display = 'block'; 
-
-        // --- NUEVO: EFECTO DE PELOTA RODANDO (3 seg de espera) ---
         setTimeout(() => {
             const avatar = document.querySelector('.avatar');
             if(avatar) {
                 avatar.classList.add('avatar-entrance');
             }
-        }, 3000); // 3000ms = 3 segundos
-
-        // Cambio de GIF a Estático (esto se mantiene igual)
+        }, 3000);
         setTimeout(() => {
             const avatar = document.querySelector('.avatar');
             if(avatar) {
                 avatar.style.backgroundImage = "url('https://xatimg.com/image/gxRBis2AoYT7.png')";
             }
         }, 4000); 
-
         setTimeout(() => { 
             main.style.opacity = '1'; 
             typeWriter(); 
         }, 100);
     }, 1500);
 }
-
         const text = "[ANALYSIS_LOG]> Bienvenido a mi espacio. Siéntase libre de explorar_";
         let i = 0;
         function typeWriter() {
@@ -573,34 +501,28 @@ button, .nav-btn, .container, .data-box, a, .tracker {
     const contents = document.querySelectorAll('.modal-content');
     contents.forEach(c => c.style.display = 'none');
     document.getElementById(id).style.display = 'block';
-
-    // EFECTO FORENSIC SOLO PARA EL ABOUT ME
     if (id === 'modal-profile') {
         const bioText = "Un pendejo que persigue lo genuino en cada vaina que le interesa...";
         const target = document.getElementById("about-me-dynamic");
-        target.innerHTML = ""; // Limpia por si lo abres varias veces
+        target.innerHTML = ""; 
         let charIndex = 0;
 
         function typeBio() {
             if (charIndex < bioText.length) {
                 target.innerHTML += bioText.charAt(charIndex);
                 charIndex++;
-                setTimeout(typeBio, 30); // Velocidad de escritura
+                setTimeout(typeBio, 30);
             }
         }
         typeBio();
     }
 }
-
         function closeModal() {
             document.getElementById('modal-container').style.display = 'none';
         }
-
         function closeAllModals(event) {
             if (event.target.id === 'modal-container') closeModal();
         }
-
-        /* LÓGICA DE MÚSICA */
         const audio = document.getElementById('bg-music');
         const progressBar = document.getElementById('progress');
         const albumArt = document.querySelector('.album-art');
@@ -610,40 +532,28 @@ button, .nav-btn, .container, .data-box, a, .tracker {
                 progressBar.style.width = percent + '%';
             }
         });
-
         function togglePlay() {
-    const btnImg = document.getElementById('play-pause-img'); // Buscamos la imagen
-
+    const btnImg = document.getElementById('play-pause-img');
     if (audio.paused) {
         audio.play();
         albumArt.style.animationPlayState = 'running';
-        btnImg.src = "https://xatimg.com/image/Jq7B1zw67YK7.png"; // Cambia a imagen de Pausa
+        btnImg.src = "https://xatimg.com/image/Jq7B1zw67YK7.png"; 
     } else {
         audio.pause();
         albumArt.style.animationPlayState = 'paused';
-        btnImg.src = "https://xatimg.com/image/cz1egVGBVjUb.png"; // Cambia a imagen de Play
+        btnImg.src = "https://xatimg.com/image/cz1egVGBVjUb.png";
     }
 }
 function setVolume(val) {
     document.getElementById('bg-music').volume = val;
 }
-
-
 const canvas = document.createElement('canvas');
 setInterval(drawMatrix, 50);
-
 function setProgressBar(event) {
-    // 1. Obtenemos el contenedor de la barra
     const container = document.querySelector('.progress-container');
-    const width = container.clientWidth; 
-    
-    // 2. Detectamos la posición del clic
-    const clickX = event.offsetX; 
-    
-    // 3. Obtenemos la duración total del audio de Pirlo
-    const duration = audio.duration; 
-    
-    // 4. Movemos la canción al punto exacto del clic
+    const width = container.clientWidth;
+    const clickX = event.offsetX;
+    const duration = audio.duration;
     if (duration) {
         audio.currentTime = (clickX / width) * duration;
     }
