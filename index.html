@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
-        
+
 body, html, button, .nav-btn, .container, .data-box, a {
     cursor: url('https://github.com/Gothwebz/XMEiFxnta/raw/refs/heads/main/cursor.cur'), auto !important;
 }
@@ -409,14 +409,29 @@ button, .nav-btn, .container, .data-box, a, .tracker {
     <p id="about-me-dynamic" style="min-height: 1.5em;"></p>
 </div>
 
-        <div id="modal-friends" class="modal-content">
-            <span class="close-btn" onclick="closeModal()">×</span>
-            <h2>Amigos</h2>
-            <div class="friends-grid">
-                <a href="https://xat.me/ALee" target="_blank" class="friend-btn">Alee</a>
-                <a href="https://xat.me/dinamite99" target="_blank" class="friend-btn">Ângela</a>
-                <a href="https://xat.me/Inevitxble" target="_blank" class="friend-btn">Nᴀɴᴀ</a>
-            </div>
+       <div id="modal-friends" class="modal-content">
+    <span class="close-btn" onclick="closeModal()">×</span>
+    <h2>Amigos</h2>
+    
+    <div class="friends-grid">
+        <a href="https://xat.me/ALee" target="_blank" class="friend-btn" 
+           data-phrase="[FILE_INFO]> Un código fuente que nunca falla." 
+           onmouseover="typeFriendPhrase(this)" onmouseout="clearFriendPhrase()">Alee</a>
+           
+        <a href="https://xat.me/dinamite99" target="_blank" class="friend-btn" 
+           data-phrase="[FILE_INFO]> La seguridad que mi sistema necesitaba." 
+           onmouseover="typeFriendPhrase(this)" onmouseout="clearFriendPhrase()">Ângela</a>
+           
+        <a href="https://xat.me/Inevitxble" target="_blank" class="friend-btn" 
+           data-phrase="[FILE_INFO]> Acceso total a mis archivos más preciados." 
+           onmouseover="typeFriendPhrase(this)" onmouseout="clearFriendPhrase()">Nᴀɴᴀ</a>
+    </div>
+
+    <div id="friend-phrase-box" style="margin-top: 25px; min-height: 40px; font-family: 'VT323', monospace; color: #815bff; font-size: 1.1rem; border-top: 1px border-top: 1px dashed #333; padding-top: 10px;">
+        [WAITING_FOR_SELECTION...]
+    
+</div>
+
         </div>
 
         <div id="modal-gallery" class="modal-content">
@@ -553,6 +568,32 @@ function setProgressBar(event) {
     if (duration) {
         audio.currentTime = (clickX / width) * duration;
     }
+}
+
+let friendTypeInterval; // Variable para controlar la escritura
+
+function typeFriendPhrase(element) {
+    const phrase = element.getAttribute('data-phrase');
+    const target = document.getElementById("friend-phrase-box");
+    
+    // Limpiamos cualquier escritura en curso
+    clearInterval(friendTypeInterval);
+    target.innerHTML = "";
+    
+    let index = 0;
+    friendTypeInterval = setInterval(() => {
+        if (index < phrase.length) {
+            target.innerHTML += phrase.charAt(index);
+            index++;
+        } else {
+            clearInterval(friendTypeInterval);
+        }
+    }, 30); // Velocidad de escritura
+}
+
+function clearFriendPhrase() {
+    clearInterval(friendTypeInterval);
+    document.getElementById("friend-phrase-box").innerHTML = "[WAITING_FOR_SELECTION...]";
 }
     </script>
 </body>
