@@ -427,9 +427,9 @@ button, .nav-btn, .container, .data-box, a, .tracker {
            onmouseover="typeFriendPhrase(this)" onmouseout="clearFriendPhrase()">Nᴀɴᴀ</a>
     </div>
 
-    <div id="friend-phrase-box" style="margin-top: 25px; min-height: 40px; font-family: 'VT323', monospace; color: #815bff; font-size: 1.1rem; border-top: 1px border-top: 1px dashed #333; padding-top: 10px;">
-        [WAITING_FOR_SELECTION...]
-    
+    <div id="friend-phrase-box" style="margin-top: 25px; min-height: 50px; font-family: 'VT323', monospace; color: #815bff; font-size: 1.2rem; border-top: 1px dashed #333; padding: 15px 10px; background: rgba(0,0,0,0.3); border-radius: 5px;">
+    [WAITING_FOR_SELECTION...]
+
 </div>
 
         </div>
@@ -533,17 +533,20 @@ button, .nav-btn, .container, .data-box, a, .tracker {
         }
         function closeAllModals(event) {
             if (event.target.id === 'modal-container') closeModal();
-        }
-        const audio = document.getElementById('bg-music');
-        const progressBar = document.getElementById('progress');
-        const albumArt = document.querySelector('.album-art');
-        audio.addEventListener('timeupdate', () => {
-            if(progressBar) {
-                const percent = (audio.currentTime / audio.duration) * 100;
-                progressBar.style.width = percent + '%';
-            }
-        });
-        function togglePlay() {
+
+       
+const audio = document.getElementById('bg-music');
+const progressBar = document.getElementById('progress');
+const albumArt = document.querySelector('.album-art');
+
+audio.addEventListener('timeupdate', () => {
+    if(progressBar) {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = percent + '%';
+    }
+});
+
+function togglePlay() {
     const btnImg = document.getElementById('play-pause-img');
     if (audio.paused) {
         audio.play();
@@ -555,11 +558,11 @@ button, .nav-btn, .container, .data-box, a, .tracker {
         btnImg.src = "https://xatimg.com/image/cz1egVGBVjUb.png";
     }
 }
+
 function setVolume(val) {
     document.getElementById('bg-music').volume = val;
 }
-const canvas = document.createElement('canvas');
-setInterval(drawMatrix, 50);
+
 function setProgressBar(event) {
     const container = document.querySelector('.progress-container');
     const width = container.clientWidth;
@@ -570,13 +573,13 @@ function setProgressBar(event) {
     }
 }
 
-let friendTypeInterval; // Variable para controlar la escritura
+
+let friendTypeInterval; 
 
 function typeFriendPhrase(element) {
     const phrase = element.getAttribute('data-phrase');
     const target = document.getElementById("friend-phrase-box");
     
-    // Limpiamos cualquier escritura en curso
     clearInterval(friendTypeInterval);
     target.innerHTML = "";
     
@@ -588,7 +591,7 @@ function typeFriendPhrase(element) {
         } else {
             clearInterval(friendTypeInterval);
         }
-    }, 30); // Velocidad de escritura
+    }, 30); 
 }
 
 function clearFriendPhrase() {
