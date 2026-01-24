@@ -415,16 +415,20 @@ button, .nav-btn, .container, .data-box, a, .tracker {
     
     <div class="friends-grid">
         <a href="https://xat.me/ALee" target="_blank" class="friend-btn" 
-           data-phrase="[FILE_INFO]> Un código fuente que nunca falla." 
+           data-phrase="[USER_INFO]> Sangre de mi sangre, qué locura no ?" 
            onmouseover="typeFriendPhrase(this)" onmouseout="clearFriendPhrase()">Alee</a>
            
         <a href="https://xat.me/dinamite99" target="_blank" class="friend-btn" 
-           data-phrase="[FILE_INFO]> La seguridad que mi sistema necesitaba." 
+           data-phrase="[USER_INFO]> El olfato más sensible, por algo será" 
            onmouseover="typeFriendPhrase(this)" onmouseout="clearFriendPhrase()">Ângela</a>
            
         <a href="https://xat.me/Inevitxble" target="_blank" class="friend-btn" 
-           data-phrase="[FILE_INFO]> Acceso total a mis archivos más preciados." 
+           data-phrase="[USER_INFO]> Mailo la vaina es qué todos los dias se actualice esa vuelta." 
            onmouseover="typeFriendPhrase(this)" onmouseout="clearFriendPhrase()">Nᴀɴᴀ</a>
+
+        <a href="https://xat.me/" target="_blank" class="friend-btn" 
+        data-phrase="[USER_INFO]> Coma mrda hpta" 
+        onmouseover="typeFriendPhrase(this)" onmouseout="clearFriendPhrase()">Jhoma</a>
     </div>
 
     <div id="friend-phrase-box" style="margin-top: 25px; min-height: 50px; font-family: 'VT323', monospace; color: #815bff; font-size: 1.2rem; border-top: 1px dashed #333; padding: 15px 10px; background: rgba(0,0,0,0.3); border-radius: 5px;">
@@ -528,23 +532,28 @@ button, .nav-btn, .container, .data-box, a, .tracker {
         typeBio();
     }
 }
-        function closeModal() {
-            document.getElementById('modal-container').style.display = 'none';
-        }
-        function closeAllModals(event) {
-            if (event.target.id === 'modal-container') closeModal();
+function closeModal() {
+    document.getElementById('modal-container').style.display = 'none';
+}
 
-       
+function closeAllModals(event) {
+    if (event.target.id === 'modal-container') {
+        closeModal();
+    }
+} 
+
 const audio = document.getElementById('bg-music');
 const progressBar = document.getElementById('progress');
 const albumArt = document.querySelector('.album-art');
 
-audio.addEventListener('timeupdate', () => {
-    if(progressBar) {
-        const percent = (audio.currentTime / audio.duration) * 100;
-        progressBar.style.width = percent + '%';
-    }
-});
+if(audio) {
+    audio.addEventListener('timeupdate', () => {
+        if(progressBar) {
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = percent + '%';
+        }
+    });
+}
 
 function togglePlay() {
     const btnImg = document.getElementById('play-pause-img');
@@ -560,7 +569,7 @@ function togglePlay() {
 }
 
 function setVolume(val) {
-    document.getElementById('bg-music').volume = val;
+    audio.volume = val;
 }
 
 function setProgressBar(event) {
