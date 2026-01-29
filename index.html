@@ -7,6 +7,88 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
+.music-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 60px; 
+    margin-top: 10px;
+    position: relative;
+    z-index: 2005;
+}
+.play-btn-wrapper {
+    cursor: pointer;
+    display: block;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+.play-btn-wrapper:active {
+    transform: scale(0.9);
+}
+#play-pause-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+#modal-music {
+    background: transparent !important; 
+    border: none !important;
+    box-shadow: none !important;
+    width: auto !important;
+    max-width: 300px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.close-btn-glow {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 2.5rem;
+    color: #815bff;
+    cursor: pointer;
+    text-shadow: 0 0 15px #815bff, 0 0 30px #815bff; 
+    transition: 0.3s;
+}
+
+.close-btn-glow:hover {
+    color: #fff;
+    transform: scale(1.1) rotate(90deg);
+}
+
+.album-art-mini {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid #7a7a7a;
+    background-image: url('https://xatimg.com/image/F8LPsdAlkZGH.png');
+    background-size: cover;
+    animation: girarDisco 5s linear infinite;
+    box-shadow: 0 0 20px rgba(177, 177, 177, 0.6); 
+    margin-bottom: 25px;
+}
+.progress-container-mini {
+    width: 200px;
+    height: 4px;
+    background: rgba(129, 91, 255, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.progress-bar-mini {
+    height: 100%;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #fff;
+    width: 0%;
+}
 
 body, html, button, .nav-btn, .container, .data-box, a {
     cursor: url('https://github.com/Gothwebz/XMEiFxnta/raw/refs/heads/main/cursor.cur'), auto !important;
@@ -457,28 +539,24 @@ img {
         <div class="scanner-line"></div>
     </div> </div>
      </div>  
-     <div id="modal-music" class="modal-content">
-    <span class="close-btn" onclick="closeModal()">×</span>
+    <div id="modal-music" class="modal-content">
+    <span class="close-btn-glow" onclick="closeModal()">×</span>
     
-    <div class="volume-container" style="margin-bottom: 20px;">
-        <input type="range" class="volume-slider" id="volume-control" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)">
-    </div>
-
-    <div class="music-player" style="text-align: center; padding: 10px;">
-        <div class="album-art"></div>
-        <h3 id="song-title" style="margin:5px 0; font-weight: 300;">El Americano 4KT</h3>
-        <p id="song-artist" style="color:gray; font-size:0.8rem; margin:0;">Pirlo - This Is Colombia</p>
+    <div class="music-player-mini">
+        <div class="album-art-mini"></div>
         
-        <div class="progress-container" onclick="setProgressBar(event)" style="width: 100%; height: 6px; background: #222; border-radius: 10px; margin: 15px 0; cursor: pointer;">
-            <div class="progress-bar" id="progress" style="width: 0%; height: 100%; background: #fff; border-radius: 10px;"></div>
+        <div class="progress-container-mini" onclick="setProgressBar(event)">
+            <div class="progress-bar-mini" id="progress"></div>
         </div>
 
-        <div class="music-controls" style="font-size: 1.5rem; cursor: pointer;">
-            <span onclick="togglePlay()">
-                <img id="play-pause-img" src="https://xatimg.com/image/Jq7B1zw67YK7.png" style="width: 40px; height: 40px;">
-            </span>
-        </div>
+        <div class="music-controls">
+    <div class="play-btn-wrapper" onclick="togglePlay(event)">
+        <img id="play-pause-img" 
+             src="https://xatimg.com/image/Jq7B1zw67YK7.png" 
+             alt="Play/Pause">
     </div>
+</div>
+</div>
 </div> 
     </div> 
     <script>
@@ -565,16 +643,22 @@ if(audio) {
     });
 }
 
-function togglePlay() {
+function togglePlay(event) {
+    if (event) event.stopPropagation(); 
+
+    const audio = document.getElementById('bg-music');
     const btnImg = document.getElementById('play-pause-img');
+    const disc = document.querySelector('.album-art-mini') || document.querySelector('.album-art');
+
     if (audio.paused) {
-        audio.play();
-        albumArt.style.animationPlayState = 'running';
-        btnImg.src = "https://xatimg.com/image/Jq7B1zw67YK7.png"; 
+        audio.play().then(() => {
+            btnImg.src = "https://xatimg.com/image/Jq7B1zw67YK7.png"; 
+            if (disc) disc.style.animationPlayState = 'running';
+        });
     } else {
         audio.pause();
-        albumArt.style.animationPlayState = 'paused';
-        btnImg.src = "https://xatimg.com/image/cz1egVGBVjUb.png";
+        btnImg.src = "https://xatimg.com/image/cz1egVGBVjUb.png"; 
+        if (disc) disc.style.animationPlayState = 'paused';
     }
 }
 
