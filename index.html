@@ -7,6 +7,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
+/* --- NUEVA CLASE PARA CENTRADO (ÚNICA ADICIÓN) --- */
+.music-player-mini {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
 .music-controls {
     display: flex;
     justify-content: center;
@@ -667,7 +675,7 @@ function setVolume(val) {
 }
 
 function setProgressBar(event) {
-    const container = document.querySelector('.progress-container');
+    const container = document.querySelector('.progress-container-mini');
     const width = container.clientWidth;
     const clickX = event.offsetX;
     const duration = audio.duration;
